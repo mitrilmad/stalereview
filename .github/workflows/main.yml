@@ -1,0 +1,29 @@
+name: Dismiss Reviews on Specific Label
+on:
+  pull_request:
+    types: [synchronize] # Trigger when new commits are pushed to a PR
+
+jobs:
+  dismiss_reviews:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.18' # Go version
+
+      - name: Build and Run Dismissal Program
+        run: |
+          go build -o dismiss_reviews ./path/to/go/code
+          ./dismiss_reviews
+
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        REPO_OWNER: ${{ github.repository_owner }}
+        REPO_NAME: ${{ github.repository }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+        LABEL_NAME: 'migration'

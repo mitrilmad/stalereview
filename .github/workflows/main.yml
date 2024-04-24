@@ -21,5 +21,5 @@ jobs:
           go-version: '1.18' # Go version
       - name: Build and Run Dismissal Program
         run: |
-          go build -o dismiss_reviews ./path/to/go/code
+          go build -o dismiss_reviews ./scripts/reviews.go
           ./dismiss_reviews
